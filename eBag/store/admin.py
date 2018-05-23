@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
-from .models import Category, Product
+from .models import Category, Product, Order
 
 
 class CategoryAdmin(DjangoMpttAdmin):
@@ -16,8 +16,16 @@ class ProductAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Product
-        fields = ('category', 'name', 'description', 'image', 'price')
+        fields = ('category', 'name', 'description', 'image', 'price', 'brand', 'created_at')
 
 
+class OrderAdmin(admin.ModelAdmin):
+
+    class Meta:
+        model = Order
+        fields = ('category', 'product', 'single_price', 'order_price', 'quantity', 'created_at')
+
+
+admin.site.register(Order, OrderAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)

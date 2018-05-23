@@ -7,7 +7,7 @@ class Category(MPTTModel):
     parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{0}{1}".format(self.level, self.name)
+        return "{0}".format(self.name)
 
     class MPTTMeta:
         order_insertion_by = ['name']
@@ -17,16 +17,32 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, default="")
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-    image = models.ImageField(upload_to='products/{0}'.format(), blank=True)
+    brand = models.CharField(max_length=100, default="")
+    image = models.ImageField(upload_to='store/products/%Y_%m_%d', blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     description = models.TextField(default="")
     available = models.BooleanField(default=True)
     quantity = models.PositiveIntegerField()
 
+
     def __str__(self):
-        return "{0} - {1}".format(self.name, self.description)
+        return self.name
 
     def get_category(self):
         return self.category.name
+
+
+class Order(models.Model):
+    category = models.CharField(max_length=100, default="")
+    product = models.CharField(max_length=200, default="")
+    single_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    order_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    quantity = models.DecimalField(max_digits=10, decimal_places=3, default=0.0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "{0} - {1} - {2} - {3} - {4}".format(self.category, self.product, self.single_price, self.order_price, self.quantity, self.created_at)
+
+
 
