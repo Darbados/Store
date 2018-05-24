@@ -8,9 +8,8 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
   position: relative;
-  font-weight:400px;
+  font-weight: 400;
 }
 
 ul li {
@@ -355,20 +354,6 @@ ul.sub-menu {
   padding-bottom: 20px;
 }
 
-.companyinfo {
-  margin-top: 57px;
-}
-
-.companyinfo h2 {
-  color: #B4B1AB;
-  font-family: abel;
-  font-size: 27px;
-  text-transform: uppercase;
-}
-
-.companyinfo h2  span{
-  color:#FE980F;
-}
 
 .companyinfo p {
   color: #B3B3AD;
@@ -899,7 +884,6 @@ h2.title {
   transition: height 500ms ease 0s;
   width: 100%;
   display: block;
-  opacity:;
 }
 
 .single-products:hover .product-overlay {
@@ -2133,15 +2117,14 @@ h2.title {
   width: 57px;
 }
 
-.pager-area 
-.pager li a:hover {
+.pager-area .pager li a:hover {
   background: #FE980F;
   color: #fff
 }
 
 .rating-area {
   border: 1px solid #F7F7F0;
-  direction: block;
+  direction: ltr;
   overflow: hidden;
 }
 
@@ -2158,8 +2141,7 @@ h2.title {
 }
 
 
-.rating-area 
-.ratings li i {
+.rating-area .ratings li i {
   color:#CCCCCC
 }
 
@@ -2170,9 +2152,7 @@ h2.title {
   text-transform: uppercase;
 }
 
-.rating-area 
-.ratings .color, 
-.rating-area .color {
+.rating-area .ratings .color, .rating-area .color {
   color: #FE980F
 }
 
@@ -2197,8 +2177,7 @@ h2.title {
 }
 
 
-.commnets 
-.media-object {
+.commnets .media-object {
   margin-right: 15px;
   width: 100%;
 }
@@ -2435,8 +2414,7 @@ h2.title {
   margin-bottom: 20px;
 }
 
-#contact-page 
-.form-control::-moz-placeholder {
+#contact-page .form-control::-moz-placeholder {
   color: #8D8D8D;
 }
 
@@ -2518,6 +2496,10 @@ h2.title {
 
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
+}
+
+.categories {
+  cursor: pointer;
 }
 
 

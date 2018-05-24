@@ -14,7 +14,7 @@ class Category(MPTTModel):
 
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=200, default="")
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     brand = models.CharField(max_length=100, default="")
@@ -25,12 +25,8 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     quantity = models.PositiveIntegerField()
 
-
     def __str__(self):
         return self.name
-
-    def get_category(self):
-        return self.category.name
 
 
 class Order(models.Model):
@@ -43,6 +39,4 @@ class Order(models.Model):
 
     def __str__(self):
         return "{0} - {1} - {2} - {3} - {4}".format(self.category, self.product, self.single_price, self.order_price, self.quantity, self.created_at)
-
-
 
