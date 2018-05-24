@@ -1,0 +1,8 @@
+Django==2.0.5
+django-js-asset==1.1.0
+django-mptt==0.9.0
+django-mptt-admin==0.5.1
+djangorestframework==3.8.2
+Pillow==5.1.0
+pytz==2018.4
+six==1.11.0
