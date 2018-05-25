@@ -2502,4 +2502,7 @@ h2.title {
   cursor: pointer;
 }
 
-
+.quantity {
+    width: 50px;
+    margin: 5px auto;
+}

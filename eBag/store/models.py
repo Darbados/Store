@@ -14,16 +14,25 @@ class Category(MPTTModel):
 
 
 class Product(models.Model):
+
+    weight_units = (
+        ('Kilogram', 'kg'),
+        ('Pound', 'pd'),
+        ('Gram', 'g'),
+        ('Liter', 'l')
+    )
+
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=200, default="")
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     brand = models.CharField(max_length=100, default="")
-    image = models.ImageField(upload_to='store/products/%Y_%m_%d', blank=True)
+    image = models.ImageField(upload_to='store/static/store/products/%Y_%m_%d', blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     description = models.TextField(default="")
     available = models.BooleanField(default=True)
     quantity = models.PositiveIntegerField()
+    unit = models.CharField(max_length=10, default="", choices=weight_units)
 
     def __str__(self):
         return self.name
