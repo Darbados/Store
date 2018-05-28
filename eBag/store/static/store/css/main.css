@@ -1611,7 +1611,8 @@ h2.title {
 
 .cart_product {
   display: block;
-  margin: 15px -70px 10px 25px;
+  margin: 20px 10px 10px;
+  vertical-align: middle;
 }
 
 .cart_quantity_button a {
@@ -1654,6 +1655,15 @@ h2.title {
 .cart_delete a:hover {
   background:#FE980F
 }
+
+#cart_submit {
+    margin-left: 50%;
+    margin-top: -60px;
+    width: 100px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
 
 
 .bg h2.title {
@@ -2505,4 +2515,8 @@ h2.title {
 .quantity {
     width: 50px;
     margin: 5px auto;
+}
+
+#order_data {
+    display: none;
 }
