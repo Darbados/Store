@@ -8,7 +8,8 @@ $(document).ready(function(){
         let this_quantity = parseInt($(this).closest('tr').find('.cart_quantity_input').val());
         let old_total_price = $(this).closest('tr').data('t_price');
         let single_price = $(this).closest('tr').data('price');
-        let updated_total_price = parseFloat((old_total_price+single_price).toFixed(2));
+        let updated_total_price = parseFloat((old_total_price+single_price)).toFixed(2);
+        console.log(updated_total_price);
 
         $(this).closest('tr').find('.cart_quantity_input').val(this_quantity+1);
         $(this).closest('tr').data('t_price', updated_total_price);
@@ -49,6 +50,19 @@ $(document).ready(function(){
         all_orders.splice(index, 1);
         window.sessionStorage.setItem('Products', all_orders.join(','))
     })
+
+    $("#cart_submit").on('click', function (e) {
+        let valid_products = []
+        $(".table").find('tr:visible').each(function (i,e) {
+            if (parseInt($(e).find('.cart_quantity_input').val()) > 0){
+                let product_dict = {
+                    'name': $(e).find('td.cart_product').find('p').text(),
+                    'category': '',
+                    'single_price': parseFloat($(e).data('price')),
+                }
+            }
+        })
+    })
 });
 
 
@@ -81,9 +95,4 @@ function cart_details(base){
         console.log(template);
         $(".table").html(base + template)
      }
-}
-
-
-function build_form(){
-
 }
