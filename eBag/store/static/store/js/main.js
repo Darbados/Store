@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
-    if (!window.sessionStorage.hasOwnProperty('Orders')){
-        window.sessionStorage.setItem('Orders', "")
+    if (!window.sessionStorage.hasOwnProperty('Products')){
+        window.sessionStorage.setItem('Products', "")
     }
 
 	$(function () {
@@ -28,28 +28,26 @@ $(document).ready(function(){
         if ($(this).closest('div').find('.quantity').val() > 0){
             product = $(this).data('product')
             price = parseFloat($(this).data('price'))
-            quantity = $(this).closest('.quantity').val()
+            quantity = parseFloat($(this).closest('.productinfo').find('.quantity').val())
+            description = $(this).data('description').replace(',','?')
 
-            console.log("Session storage length: ", window.sessionStorage.length)
+            if (window.sessionStorage.getItem('Products').length != 0){
+                curr_order = window.sessionStorage.getItem('Products').split(',').length++
+                order = "Product" + curr_order + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|Desc-" + description
+                orders_array = window.sessionStorage.getItem('Products')
 
-            if (window.sessionStorage.getItem('Orders').length != 0){
-                order = "Order" + window.sessionStorage.getItem('Orders').length++ + ": " + quantity + " " + product + " = " + (price*parseInt(quantity))
-                orders_array = window.sessionStorage.getItem('Orders')
-
-                console.log("Order", order)
-                console.log("Orders array", orders_array)
+                console.log("Product", order)
 
                 orders_array = orders_array + ',' + order
-                window.sessionStorage.setItem('Orders', orders_array)
+                window.sessionStorage.setItem('Products', orders_array)
             } else {
-                order = "Order1" + ": " + quantity + " " + product + " = " + (parseInt(price)*parseInt(quantity))
-                orders_array = window.sessionStorage.getItem('Orders')
-                orders_array = orders_array + ',' + order
+                order = "Product1" + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|Desc-" + description
+                orders_array = window.sessionStorage.getItem('Products')
+                orders_array = orders_array + order + ','
 
-                console.log("Order", order)
-                console.log("Orders array", orders_array)
+                console.log("Product", order)
 
-                window.sessionStorage.setItem('Orders', orders_array)
+                window.sessionStorage.setItem('Products', orders_array)
             }
         } else {
             alert("You can't add 0 items to your bag.")
