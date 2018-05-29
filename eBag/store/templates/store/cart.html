@@ -127,13 +127,8 @@
             <button class="btn btn-primary" id="cart_submit">Buy</button>
 
             <form method="post" id="order_data">
-                {% csrf_token %}
-                <input type="hidden" name="category" />
-                <input type="hidden" name="product" />
-                <input type="hidden" name="single_price" />
-                <input type="hidden" name="order_price" />
-                <input type="hidden" name="quantity" />
-
+				{% csrf_token %}
+                <input type="hidden" name="order_text" />
                 <input type="submit" id="order_data_submit" />
             </form>
 		</div>

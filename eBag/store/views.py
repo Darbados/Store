@@ -1,7 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Category, Product
-
+from django.http import JsonResponse, HttpResponseRedirect
+from django.urls import reverse
+from django.views import View
+from rest_framework.views import APIView
+from .models import Category, Product, Order
+from .serializers import OrderSerializer
+from .forms import OrderForm
 
 def index(request):
     template = 'store/index.html'
@@ -34,10 +38,19 @@ def index(request):
     return render(request, template, context)
 
 
-def shopping_cart(request):
-    template = 'store/cart.html'
+class ShoppingCart(View):
 
-    return render(request, template)
+    def get(self, request):
+        template = 'store/cart.html'
+
+        return render(request, template)
+
+    def post(self, request):
+        order_text = request.POST['order_text']
+        order = Order.objects.create(order_text=order_text)
+        order.save()
+
+        return HttpResponseRedirect(reverse('store:checkout'))
 
 
 def category_products(request, cat_id):
@@ -46,3 +59,19 @@ def category_products(request, cat_id):
     context = {'products': cat_products}
 
     return render(request, template, context)
+
+
+def checkout(request):
+    template = 'store/checkout.html'
+    last_order = Order.objects.all().order_by('created_at')[0]
+    context = {'last_order': last_order}
+
+    return render(request, template, context)
+
+class OrdersView(APIView):
+
+    def get(self, request):
+        orders = Order.objects.all()
+        serializer = OrderSerializer(orders, many=True)
+
+        return JsonResponse(serializer.data, safe=False)

@@ -23,7 +23,7 @@ class OrderAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Order
-        fields = ('category', 'product', 'single_price', 'order_price', 'quantity', 'created_at')
+        fields = ('order_text', 'created_at')
 
 
 admin.site.register(Order, OrderAdmin)

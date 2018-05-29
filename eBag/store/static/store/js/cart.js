@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     let initial_table_html = $(".table").html();
     cart_details(initial_table_html);
 
@@ -49,23 +48,20 @@ $(document).ready(function(){
         }
 
         all_orders.splice(index, 1);
-        window.sessionStorage.setItem('Products', all_orders.join(','))
-    })
+        window.sessionStorage.setItem('Products', all_orders.join(','));
+        $("#cart_submit").trigger('click');
+    });
 
     $("#cart_submit").on('click', function (e) {
-        let valid_products = []
+        let order_text = ``;
         $(".table").find('tr:visible').each(function (i,e) {
             if (parseInt($(e).find('.cart_quantity_input').val()) > 0){
-                let product_dict = {
-                    'name': $(e).find('td.cart_product').find('p').text(),
-                    'category': $(e).data('category'),
-                    'single_price': parseFloat($(e).data('price')),
-                    'order_price': parseFloat($(e).data('t_price'))
-                }
-                valid_products.push(product_dict);
+                order_text += `${$(e).data('category')}-${$(e).find('td.cart_product').find('p').text()}-${parseFloat($(e).data('price'))}-${parseFloat($(e).data('t_price'))}-${parseInt($(e).find('.cart_quantity_input').val())},`
             }
         });
-        console.log(valid_products)
+        console.log(order_text);
+        $('input[name="order_text"]').val(order_text);
+        $("#order_data").find('input[type="submit"]').click()
     });
 });
 
@@ -74,6 +70,8 @@ function cart_details(base){
      if (window.sessionStorage.hasOwnProperty('Products') && window.sessionStorage.getItem('Products').length > 0){
         let template;
         let all_products = window.sessionStorage.getItem('Products').split(',');
+        console.log(all_products)
+
 
         for (let x=0; x<all_products.length; x++){
             if (all_products[x] !== ''){
@@ -82,9 +80,10 @@ function cart_details(base){
                 let product_id = product_details[0].replace(':','');
                 let product_price = product_details[2].split('-')[1];
                 let total_price = parseFloat(product_details[3].split('=')[1]).toFixed(2);
-                let category = product_details[product_details.length-2].split('-')[1]
+                let category = product_details[product_details.length-2].split('-')[1];
                 let product_description = product_details[product_details.length-1].replace('?', ', ');
                 let quantity = product_details[1].split('-')[1];
+
 
                 template += `<tbody><tr id=${product_id} data-price=${product_price} data-t_price=${total_price} data-quantity=${quantity} data-category=${category}>
                                     <td class="cart_product"><p>${product_name}</p></td>
@@ -97,7 +96,7 @@ function cart_details(base){
 
             }
         }
-        console.log(template);
+        //console.log(template);
         $(".table").html(base + template)
      }
 }
