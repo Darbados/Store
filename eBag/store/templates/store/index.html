@@ -182,13 +182,12 @@
 											<div class="product-image-wrapper">
 												<div class="single-products">
 													<div class="productinfo text-center">
-														{{pr.image.name}}
 														<img src="../../../../{{pr.image}}" alt="product_{{ pr.name }}" width="300"/>
 														<h2>{{ pr.price }}lv. per {{ pr.unit }}</h2>
 														<p>{{ pr.name }}</p>
 														<p class="text-justify">{{ pr.description }}</p>
 														<input type="number" class="form-control quantity" placeholder="0"/>
-														<a href="#" class="btn btn-default add-to-cart" data-description="{{ pr.description }}" data-product="{{pr.name}}" data-price="{{pr.price}}" data-unit="{{pr.unit}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+														<a href="#" class="btn btn-default add-to-cart" data-category="{{ pr.category }}" data-description="{{ pr.description }}" data-product="{{pr.name}}" data-price="{{pr.price}}" data-unit="{{pr.unit}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 													</div>
 												</div>
 											</div>

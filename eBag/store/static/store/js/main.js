@@ -30,6 +30,7 @@ $(document).ready(function(){
             price = parseFloat($(this).data('price'))
             quantity = parseFloat($(this).closest('.productinfo').find('.quantity').val())
             description = $(this).data('description').replace(',','?')
+            category = $(this).date('category')
 
             if (window.sessionStorage.getItem('Products').length != 0){
                 curr_order = window.sessionStorage.getItem('Products').split(',').length++
@@ -41,7 +42,7 @@ $(document).ready(function(){
                 orders_array = orders_array + ',' + order
                 window.sessionStorage.setItem('Products', orders_array)
             } else {
-                order = "Product1" + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|Desc-" + description
+                order = "Product1" + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" +  + "|Desc-" + description
                 orders_array = window.sessionStorage.getItem('Products')
                 orders_array = orders_array + order + ','
 

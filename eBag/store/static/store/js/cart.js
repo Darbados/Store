@@ -58,12 +58,15 @@ $(document).ready(function(){
             if (parseInt($(e).find('.cart_quantity_input').val()) > 0){
                 let product_dict = {
                     'name': $(e).find('td.cart_product').find('p').text(),
-                    'category': '',
+                    'category': $(e).data('category'),
                     'single_price': parseFloat($(e).data('price')),
+                    'order_price': parseFloat($(e).data('t_price'))
                 }
+                valid_products.push(product_dict);
             }
-        })
-    })
+        });
+        console.log(valid_products)
+    });
 });
 
 
@@ -79,10 +82,11 @@ function cart_details(base){
                 let product_id = product_details[0].replace(':','');
                 let product_price = product_details[2].split('-')[1];
                 let total_price = parseFloat(product_details[3].split('=')[1]).toFixed(2);
+                let category = product_details[product_details.length-2].split('-')[1]
                 let product_description = product_details[product_details.length-1].replace('?', ', ');
                 let quantity = product_details[1].split('-')[1];
 
-                template += `<tbody><tr id=${product_id} data-price=${product_price} data-t_price=${total_price} data-quantity=${quantity}>
+                template += `<tbody><tr id=${product_id} data-price=${product_price} data-t_price=${total_price} data-quantity=${quantity} data-category=${category}>
                                     <td class="cart_product"><p>${product_name}</p></td>
                                     <td class="cart_description"><h4>${product_description}</h4></td>
                                     <td class="cart_price"><span class="price">${product_price}</span><span class="currency">lv.</span></td>
