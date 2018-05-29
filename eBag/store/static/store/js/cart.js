@@ -5,26 +5,27 @@ $(document).ready(function(){
 
     $(".cart_quantity_up").on('click', function(e){
         e.preventDefault();
-        let this_quantity = parseInt($(this).closest('tr').find('.cart_quantity_input').val());
-        let old_total_price = $(this).closest('tr').data('t_price');
-        let single_price = $(this).closest('tr').data('price');
-        let updated_total_price = parseFloat((old_total_price+single_price)).toFixed(2);
-        console.log(updated_total_price);
+        let total_price = parseFloat($(this).closest('tr').data('t_price'));
+        let single_price = parseFloat($(this).closest('tr').data('price'))
+        let previous_quantity = parseInt($(this).closest('tr').find('.cart_quantity_input').val())
+        $(this).closest('tr').data('t_price', (total_price+single_price).toFixed(2))
 
-        $(this).closest('tr').find('.cart_quantity_input').val(this_quantity+1);
-        $(this).closest('tr').data('t_price', updated_total_price);
-        $(this).closest('tr').find('.cart_total').find('p').html(updated_total_price + 'lv.')
+        $(this).closest('tr').find('.cart_quantity_input').val(previous_quantity+1);
+        $(this).closest('tr').find('.cart_total').find('span:first').html($(this).closest('tr').data('t_price'));
     });
 
     $(".cart_quantity_down").on('click', function(e){
         e.preventDefault();
+        let previous_quantity = parseInt($(this).closest('tr').find('.cart_quantity_input').val())
 
-        if (($(this).closest('tr').find('.cart_quantity_input').val()-1) >= 0 ){
-            $(this).closest('tr').find('.cart_quantity_input').val(parseInt($(this).closest('tr').find('.cart_quantity_input').val())-1);
-            $(this).closest('tr').data('t_price', parseFloat(($(this).closest('tr').data('t_price')-$(this).closest('tr').data('price')).toFixed(2)));
-            $(this).closest('tr').find('.cart_total').find('p').html($(this).closest('tr').data('t_price'));
+        if ((previous_quantity-1) >= 0 ){
+            let total_price = parseFloat($(this).closest('tr').data('t_price'));
+            let single_price = parseFloat($(this).closest('tr').data('price'))
 
-            $(this).closest('tr').find('.cart_total').find('p').html($(this).closest('tr').data('t_price') + 'lv.')
+            $(this).closest('tr').data('t_price', (total_price-single_price).toFixed(2))
+
+            $(this).closest('tr').find('.cart_quantity_input').val(previous_quantity-1);
+            $(this).closest('tr').find('.cart_total').find('span:first').html($(this).closest('tr').data('t_price'));
         } else {
             alert("Negative quantity is not allowed!")
         }
@@ -84,10 +85,10 @@ function cart_details(base){
                 template += `<tbody><tr id=${product_id} data-price=${product_price} data-t_price=${total_price} data-quantity=${quantity}>
                                     <td class="cart_product"><p>${product_name}</p></td>
                                     <td class="cart_description"><h4>${product_description}</h4></td>
-                                    <td class="cart_price"><p>${product_price}lv.</p></td>
+                                    <td class="cart_price"><span class="price">${product_price}</span><span class="currency">lv.</span></td>
                                     <td class="cart_quantity"><div class="cart_quantity_button"><a class="cart_quantity_up" href="#"> + </a>
                                     <input class="cart_quantity_input" type="text" name="quantity" value=${quantity} autocomplete="off" size="2"><a class="cart_quantity_down" href="#"> - </a></div></td>
-                                    <td class="cart_total"><p class="cart_total_price">${total_price}lv.</p></td>
+                                    <td class="cart_total"><span class="cart_total_price">${total_price}</span><span class="currency">lv.</span></td>
                                     <td class="cart_delete"><a class="cart_quantity_delete" href="#"><i class="fa fa-times"></i></a></td></tr></tbody>`
 
             }
