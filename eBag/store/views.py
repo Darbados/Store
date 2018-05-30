@@ -46,9 +46,18 @@ class ShoppingCart(View):
         return render(request, template)
 
     def post(self, request):
-        order_text = request.POST['order_text']
-        order = Order.objects.create(order_text=order_text)
-        order.save()
+        order_text = request.POST['order_text'][:-1].split(',')
+
+        for product in order_text:
+            product_info = product.split('-')
+            category = product_info[0]
+            product_name = product_info[1]
+            single_price = product_info[2]
+            order_price = product_info[3]
+            quantity = product_info[4]
+
+            order = Order.objects.create(category=category, product=product_name, single_price=single_price, order_price=order_price, quantity=quantity)
+            order.save()
 
         return HttpResponseRedirect(reverse('store:checkout'))
 

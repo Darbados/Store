@@ -59,7 +59,7 @@ $(document).ready(function(){
                 order_text += `${$(e).data('category')}-${$(e).find('td.cart_product').find('p').text()}-${parseFloat($(e).data('price'))}-${parseFloat($(e).data('t_price'))}-${parseInt($(e).find('.cart_quantity_input').val())},`
             }
         });
-        console.log(order_text);
+        console.log(order_text.split(','));
         $('input[name="order_text"]').val(order_text);
         $("#order_data").find('input[type="submit"]').click()
     });

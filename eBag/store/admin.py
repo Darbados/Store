@@ -23,7 +23,7 @@ class OrderAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Order
-        fields = ('order_text', 'created_at')
+        fields = '__all__'
 
 
 admin.site.register(Order, OrderAdmin)
