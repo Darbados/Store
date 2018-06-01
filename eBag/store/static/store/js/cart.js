@@ -49,7 +49,6 @@ $(document).ready(function(){
 
         all_orders.splice(index, 1);
         window.sessionStorage.setItem('Products', all_orders.join(','));
-        $("#cart_submit").trigger('click');
     });
 
     $("#cart_submit").on('click', function (e) {
@@ -61,6 +60,7 @@ $(document).ready(function(){
         });
         console.log(order_text.split(','));
         $('input[name="order_text"]').val(order_text);
+        winndow.sessionStorage.setItem("Products","");
         $("#order_data").find('input[type="submit"]').click()
     });
 });
