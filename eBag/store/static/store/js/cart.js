@@ -55,7 +55,7 @@ $(document).ready(function(){
         let order_text = ``;
         $(".table").find('tr:visible').each(function (i,e) {
             if (parseInt($(e).find('.cart_quantity_input').val()) > 0){
-                order_text += `${$(e).data('category')}-${$(e).find('td.cart_product').find('p').text()}-${parseFloat($(e).data('price'))}-${parseFloat($(e).data('t_price'))}-${parseInt($(e).find('.cart_quantity_input').val())},`
+                order_text += `${$(e).data('category')}-${$(e).find('td.cart_product').find('p').text()}-${parseFloat($(e).data('price'))}-${parseFloat($(e).data('t_price'))}-${parseInt($(e).find('.cart_quantity_input').val())}|NP|`
             }
         });
         console.log(order_text.split('|NP|'));

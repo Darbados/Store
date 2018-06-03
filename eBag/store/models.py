@@ -31,7 +31,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
     description = models.TextField(default="")
     available = models.BooleanField(default=True)
-    quantity = models.PositiveIntegerField()
+    quantity = models.DecimalField(default=0.0, max_digits=6, decimal_places=3)
     unit = models.CharField(max_length=10, default="", choices=weight_units)
 
     def __str__(self):
@@ -41,10 +41,11 @@ class Product(models.Model):
 class Order(models.Model):
     category = models.CharField(default="", max_length=50)
     product = models.CharField(default="", max_length=50)
-    quantity = models.PositiveIntegerField(default=0)
+    quantity = models.DecimalField(default=0.0, decimal_places=3, max_digits=6)
     single_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=10)
     order_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=10)
     created_at = models.DateTimeField(auto_now_add=True)
+    order_uv = models.SlugField(max_length=100, default="")
 
     def __str__(self):
         return "{0} - {1} - {2} - {3} - {4} - {5}".format(self.category, self.product, self.quantity, self.single_price, self.order_price, self.created_at)

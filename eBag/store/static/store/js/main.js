@@ -33,7 +33,7 @@ $(document).ready(function(){
             category = $(this).data('category');
 
             if (window.sessionStorage.getItem('Products').length != 0){
-                curr_order = window.sessionStorage.getItem('Products').split(',').length++;
+                curr_order = window.sessionStorage.getItem('Products').split('|NP|').length++;
                 order = "Product" + curr_order + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;
                 orders_array = window.sessionStorage.getItem('Products');
 
@@ -44,7 +44,7 @@ $(document).ready(function(){
             } else {
                 order = "Product1" + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;
                 orders_array = window.sessionStorage.getItem('Products');
-                orders_array = orders_array + order;
+                orders_array = orders_array + order + '|NP|';
 
                 console.log("Product", order);
 

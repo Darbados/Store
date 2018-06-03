@@ -178,39 +178,43 @@
 							<div class="carousel-inner">
 								<div class="item active">
 									{% for pr in active_products %}
-										<div class="col-sm-4">
-											<div class="product-image-wrapper">
-												<div class="single-products">
-													<div class="productinfo text-center">
-														<img src="../../../../{{pr.image}}" alt="product_{{ pr.name }}" width="300"/>
-														<h2>{{ pr.price }}lv. per {{ pr.unit }}</h2>
-														<p>{{ pr.name }}</p>
-														<p class="text-justify">{{ pr.description }}</p>
-														<input type="number" class="form-control quantity" placeholder="0"/>
-														<a href="#" class="btn btn-default add-to-cart" data-category="{{ pr.category }}" data-description="{{ pr.description }}" data-product="{{pr.name}}" data-price="{{pr.price}}" data-unit="{{pr.unit}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									{% endfor %}
-								</div>
-								{% for product in not_active %}
-									<div class="item">
-										{% for pr in product %}
+										{% if pr.quantity > 0 %}
 											<div class="col-sm-4">
 												<div class="product-image-wrapper">
 													<div class="single-products">
 														<div class="productinfo text-center">
-															<img src="{{ pr.image }}" alt="product_{{ pr.name }}" width="300"/>
+															<img src="../../../../{{pr.image}}" alt="product_{{ pr.name }}" width="300"/>
 															<h2>{{ pr.price }}lv. per {{ pr.unit }}</h2>
 															<p>{{ pr.name }}</p>
 															<p class="text-justify">{{ pr.description }}</p>
-															<input type="number" class="form-control quantity" placeholder="0"/>
+															<input type="number" class="form-control quantity" placeholder="0.0" step="0.1" min="0.0"/>
 															<a href="#" class="btn btn-default add-to-cart" data-category="{{ pr.category }}" data-description="{{ pr.description }}" data-product="{{pr.name}}" data-price="{{pr.price}}" data-unit="{{pr.unit}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 														</div>
 													</div>
 												</div>
 											</div>
+										{% endif %}
+									{% endfor %}
+								</div>
+								{% for product in not_active %}
+									<div class="item">
+										{% for pr in product %}
+											{% if pr.quantity > 0 %}
+												<div class="col-sm-4">
+													<div class="product-image-wrapper">
+														<div class="single-products">
+															<div class="productinfo text-center">
+																<img src="{{ pr.image }}" alt="product_{{ pr.name }}" width="300"/>
+																<h2>{{ pr.price }}lv. per {{ pr.unit }}</h2>
+																<p>{{ pr.name }}</p>
+																<p class="text-justify">{{ pr.description }}</p>
+																<input type="number" class="form-control quantity" placeholder="0.0" step="0.1" min="0.0"/>
+																<a href="#" class="btn btn-default add-to-cart" data-category="{{ pr.category }}" data-description="{{ pr.description }}" data-product="{{pr.name}}" data-price="{{pr.price}}" data-unit="{{pr.unit}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											{% endif %}
 										{% endfor %}
 									</div>
 								{% endfor %}

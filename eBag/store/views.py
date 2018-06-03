@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from .models import Category, Product, Order
 from .serializers import OrderSerializer
 from .forms import OrderForm
+import uuid, decimal
 
 def index(request):
     template = 'store/index.html'
@@ -46,20 +47,27 @@ class ShoppingCart(View):
         return render(request, template)
 
     def post(self, request):
-        order_text = request.POST['order_text'][:-1].split(',')
+        order_text = request.POST['order_text'].split('|NP|')
+        order_uuid = str(uuid.uuid1())
 
-        for product in order_text:
+        for product in order_text[:-1]:
             product_info = product.split('-')
             category = product_info[0]
             product_name = product_info[1]
-            single_price = product_info[2]
-            order_price = product_info[3]
-            quantity = product_info[4]
+            single_price = float(product_info[2])
+            order_price = float(product_info[3])
+            quantity = float(product_info[4])
 
-            order = Order.objects.create(category=category, product=product_name, single_price=single_price, order_price=order_price, quantity=quantity)
+            prod_q = Product.objects.get(name=product_name)
+            decimal_quantity = prod_q.quantity
+            decimal_quantity = decimal.Decimal(decimal_quantity) - decimal.Decimal(quantity)
+            prod_q.quantity = decimal_quantity
+            prod_q.save()
+
+            order = Order.objects.create(category=category, product=product_name, single_price=single_price, order_price=order_price, quantity=quantity, order_uv=order_uuid)
             order.save()
 
-        return HttpResponseRedirect(reverse('store:checkout'))
+        return HttpResponseRedirect(reverse('store:checkout', args=(order_uuid,)))
 
 
 def category_products(request, cat_id):
@@ -70,9 +78,9 @@ def category_products(request, cat_id):
     return render(request, template, context)
 
 
-def checkout(request):
+def checkout(request, order_uv):
     template = 'store/checkout.html'
-    last_order = Order.objects.all()
+    last_order = Order.objects.filter(order_uv=order_uv)
     context = {'last_order': last_order}
 
     return render(request, template, context)
