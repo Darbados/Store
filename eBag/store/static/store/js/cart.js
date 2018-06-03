@@ -5,9 +5,9 @@ $(document).ready(function(){
     $(".cart_quantity_up").on('click', function(e){
         e.preventDefault();
         let total_price = parseFloat($(this).closest('tr').data('t_price'));
-        let single_price = parseFloat($(this).closest('tr').data('price'))
-        let previous_quantity = parseInt($(this).closest('tr').find('.cart_quantity_input').val())
-        $(this).closest('tr').data('t_price', (total_price+single_price).toFixed(2))
+        let single_price = parseFloat($(this).closest('tr').data('price'));
+        let previous_quantity = parseInt($(this).closest('tr').find('.cart_quantity_input').val());
+        $(this).closest('tr').data('t_price', (total_price+single_price).toFixed(2));
 
         $(this).closest('tr').find('.cart_quantity_input').val(previous_quantity+1);
         $(this).closest('tr').find('.cart_total').find('span:first').html($(this).closest('tr').data('t_price'));
@@ -15,13 +15,13 @@ $(document).ready(function(){
 
     $(".cart_quantity_down").on('click', function(e){
         e.preventDefault();
-        let previous_quantity = parseInt($(this).closest('tr').find('.cart_quantity_input').val())
+        let previous_quantity = parseInt($(this).closest('tr').find('.cart_quantity_input').val());
 
         if ((previous_quantity-1) >= 0 ){
             let total_price = parseFloat($(this).closest('tr').data('t_price'));
-            let single_price = parseFloat($(this).closest('tr').data('price'))
+            let single_price = parseFloat($(this).closest('tr').data('price'));
 
-            $(this).closest('tr').data('t_price', (total_price-single_price).toFixed(2))
+            $(this).closest('tr').data('t_price', (total_price-single_price).toFixed(2));
 
             $(this).closest('tr').find('.cart_quantity_input').val(previous_quantity-1);
             $(this).closest('tr').find('.cart_total').find('span:first').html($(this).closest('tr').data('t_price'));
@@ -36,7 +36,7 @@ $(document).ready(function(){
 
 
         let row_id = $(this).closest('tr').attr('id');
-        let all_orders = window.sessionStorage.getItem('Products').split(',');
+        let all_orders = window.sessionStorage.getItem('Products').split('|NP|');
         let index = 0;
 
         for (let x=0; x<all_orders.length; x++){
@@ -48,7 +48,7 @@ $(document).ready(function(){
         }
 
         all_orders.splice(index, 1);
-        window.sessionStorage.setItem('Products', all_orders.join(','));
+        window.sessionStorage.setItem('Products', all_orders.join('|NP|'));
     });
 
     $("#cart_submit").on('click', function (e) {
@@ -58,9 +58,9 @@ $(document).ready(function(){
                 order_text += `${$(e).data('category')}-${$(e).find('td.cart_product').find('p').text()}-${parseFloat($(e).data('price'))}-${parseFloat($(e).data('t_price'))}-${parseInt($(e).find('.cart_quantity_input').val())},`
             }
         });
-        console.log(order_text.split(','));
+        console.log(order_text.split('|NP|'));
         $('input[name="order_text"]').val(order_text);
-        winndow.sessionStorage.setItem("Products","");
+        window.sessionStorage.setItem("Products","");
         $("#order_data").find('input[type="submit"]').click()
     });
 });
@@ -69,7 +69,7 @@ $(document).ready(function(){
 function cart_details(base){
      if (window.sessionStorage.hasOwnProperty('Products') && window.sessionStorage.getItem('Products').length > 0){
         let template;
-        let all_products = window.sessionStorage.getItem('Products').split(',');
+        let all_products = window.sessionStorage.getItem('Products').split('|NP|');
         console.log(all_products)
 
 
@@ -81,7 +81,7 @@ function cart_details(base){
                 let product_price = product_details[2].split('-')[1];
                 let total_price = parseFloat(product_details[3].split('=')[1]).toFixed(2);
                 let category = product_details[product_details.length-2].split('-')[1];
-                let product_description = product_details[product_details.length-1].replace('?', ', ');
+                let product_description = product_details[product_details.length-1];
                 let quantity = product_details[1].split('-')[1];
 
 

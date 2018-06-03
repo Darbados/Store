@@ -26,27 +26,27 @@ $(document).ready(function(){
 	$('a.add-to-cart').on('click', function(e){
 	    e.preventDefault()
         if ($(this).closest('div').find('.quantity').val() > 0){
-            product = $(this).data('product')
-            price = parseFloat($(this).data('price'))
-            quantity = parseFloat($(this).closest('.productinfo').find('.quantity').val())
-            description = $(this).data('description').replace(',','?')
-            category = $(this).data('category')
+            product = $(this).data('product');
+            price = parseFloat($(this).data('price'));
+            quantity = parseFloat($(this).closest('.productinfo').find('.quantity').val());
+            description = $(this).data('description');
+            category = $(this).data('category');
 
             if (window.sessionStorage.getItem('Products').length != 0){
-                curr_order = window.sessionStorage.getItem('Products').split(',').length++
-                order = "Product" + curr_order + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description
-                orders_array = window.sessionStorage.getItem('Products')
+                curr_order = window.sessionStorage.getItem('Products').split(',').length++;
+                order = "Product" + curr_order + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;
+                orders_array = window.sessionStorage.getItem('Products');
 
-                console.log("Product", order)
+                console.log("Product", order);
 
-                orders_array = orders_array + ',' + order
-                window.sessionStorage.setItem('Products', orders_array)
+                orders_array = orders_array + '|NP|' + order;
+                window.sessionStorage.setItem('Products', orders_array);
             } else {
-                order = "Product1" + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description
-                orders_array = window.sessionStorage.getItem('Products')
-                orders_array = orders_array + order + ','
+                order = "Product1" + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;
+                orders_array = window.sessionStorage.getItem('Products');
+                orders_array = orders_array + order;
 
-                console.log("Product", order)
+                console.log("Product", order);
 
                 window.sessionStorage.setItem('Products', orders_array)
             }

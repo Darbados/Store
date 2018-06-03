@@ -72,7 +72,7 @@ def category_products(request, cat_id):
 
 def checkout(request):
     template = 'store/checkout.html'
-    last_order = Order.objects.all().order_by('created_at')[0]
+    last_order = Order.objects.all()
     context = {'last_order': last_order}
 
     return render(request, template, context)
