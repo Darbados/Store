@@ -8,6 +8,7 @@ from .serializers import OrderSerializer
 from .forms import OrderForm
 import uuid, decimal
 
+
 def index(request):
     template = 'store/index.html'
     categories = Category.objects.all()
@@ -84,6 +85,7 @@ def checkout(request, order_uv):
     context = {'last_order': last_order}
 
     return render(request, template, context)
+
 
 class OrdersView(APIView):
 
