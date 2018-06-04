@@ -102,25 +102,24 @@
 						{% for product in products %}
 							<div class="col-sm-5">
 								<div class="product-information"><!--/product-information-->
-									<h2>{{ product.name }}</h2>
-									<p>Product ID: {{ product.id }}</p>
-									<img src="{% static 'store/images/product-details/rating.png' %}" alt="" />
-									<span>
-										<span>{{ product.price }}</span>
-										<label>Quantity:</label>
-										<input type="text" value="3" />
-										<button type="button" class="btn btn-fefault cart">
-											<i class="fa fa-shopping-cart"></i>
-											Add to cart
-										</button>
-									</span>
 									{% if product.quantity > 0 %}
+										<h2>{{ product.name }}</h2>
+										<p>Product ID: {{ product.id }}</p>
+										<img src="../../{{ product.image.url }}" alt="{{ product.name }}" width="300" height="200"/>
+										<span>
+											<span>{{ product.price }}</span>
+											<label>Quantity:</label>
+											<input type="number" class="quantity" placeholder="0.0" step="0.1" min="0.0"/>
+											<button type="button" class="btn btn-fefault cart" data-product="{{ product.name }}" data-price="{{ product.price }}" data-category="{{ pr.category }}" data-description="{{ pr.description }}">
+												<i class="fa fa-shopping-cart"></i>
+												Add to cart
+											</button>
+										</span>
 										<p><b>Availability:</b> In Stock</p>
+										<p><b>Brand:</b> {{ product.brand }}</p>
 									{% else %}
 										<p>We expect new delivery tomorrow...</p>
 									{% endif %}
-									<p><b>Brand:</b> {{ product.brand }}</p>
-									<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 								</div><!--/product-information-->
 							</div>
 						{% endfor %}

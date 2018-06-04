@@ -2513,7 +2513,7 @@ h2.title {
 }
 
 .quantity {
-    width: 75px;
+    width: 75px!important;
     margin: 5px auto;
 }
 

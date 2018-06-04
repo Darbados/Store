@@ -183,7 +183,7 @@
 												<div class="product-image-wrapper">
 													<div class="single-products">
 														<div class="productinfo text-center">
-															<img src="../../../../{{pr.image}}" alt="product_{{ pr.name }}" width="300"/>
+															<img src="../../{{pr.image.url}}" alt="product_{{ pr.name }}" width="300" height="300"/>
 															<h2>{{ pr.price }}lv. per {{ pr.unit }}</h2>
 															<p>{{ pr.name }}</p>
 															<p class="text-justify">{{ pr.description }}</p>
@@ -204,7 +204,7 @@
 													<div class="product-image-wrapper">
 														<div class="single-products">
 															<div class="productinfo text-center">
-																<img src="{{ pr.image }}" alt="product_{{ pr.name }}" width="300"/>
+																<img src="../../{{ pr.image.url }}" alt="product_{{ pr.name }}" width="300" height="200"/>
 																<h2>{{ pr.price }}lv. per {{ pr.unit }}</h2>
 																<p>{{ pr.name }}</p>
 																<p class="text-justify">{{ pr.description }}</p>

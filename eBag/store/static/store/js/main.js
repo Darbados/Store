@@ -24,26 +24,60 @@ $(document).ready(function(){
 	});
 
 	$('a.add-to-cart').on('click', function(e){
-	    e.preventDefault()
+	    e.preventDefault();
         if ($(this).closest('div').find('.quantity').val() > 0){
-            product = $(this).data('product');
-            price = parseFloat($(this).data('price'));
-            quantity = parseFloat($(this).closest('.productinfo').find('.quantity').val());
-            description = $(this).data('description');
-            category = $(this).data('category');
+            let product = $(this).data('product');
+            let price = parseFloat($(this).data('price'));
+            let quantity = parseFloat($(this).closest('.productinfo').find('.quantity').val());
+            let description = $(this).data('description');
+            let category = $(this).data('category');
 
-            if (window.sessionStorage.getItem('Products').length != 0){
-                curr_order = window.sessionStorage.getItem('Products').split('|NP|').length++;
-                order = "Product" + curr_order + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;
-                orders_array = window.sessionStorage.getItem('Products');
+            if (window.sessionStorage.getItem('Products').length !== 0){
+                let curr_order = window.sessionStorage.getItem('Products').split('|NP|').length++;
+                let order = "Product" + curr_order + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;
+                let orders_array = window.sessionStorage.getItem('Products');
 
                 console.log("Product", order);
 
                 orders_array = orders_array + '|NP|' + order;
                 window.sessionStorage.setItem('Products', orders_array);
             } else {
-                order = "Product1" + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;
-                orders_array = window.sessionStorage.getItem('Products');
+                let order = "Product1" + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;
+                let orders_array = window.sessionStorage.getItem('Products');
+                orders_array = orders_array + order + '|NP|';
+
+                console.log("Product", order);
+
+                window.sessionStorage.setItem('Products', orders_array)
+            }
+        } else {
+            alert("You can't add 0 items to your bag.")
+        }
+	});
+
+    $('button.cart').on('click', function(){
+        if ($(this).closest('div').find('.quantity').val() > 0){
+            let product = $(this).data('product');
+            let price = parseFloat($(this).data('price'));
+            let quantity = parseFloat($(this).closest('div').find('.quantity').val());
+            let description = $(this).data('description');
+            let category = $(this).data('category');
+
+            if (window.sessionStorage.getItem('Products').length !== 0){
+                let curr_order = window.sessionStorage.getItem('Products').split('|NP|').length++;
+                let order = "Product" + curr_order + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;
+                let orders_array = window.sessionStorage.getItem('Products');
+
+                console.log("Product", order);
+
+                if (orders_array.indexOf(order) === -1 ){
+                    orders_array = orders_array + '|NP|' + order;
+                    window.sessionStorage.setItem('Products', orders_array);
+                }
+
+            } else {
+                let order = "Product1" + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;
+                let orders_array = window.sessionStorage.getItem('Products');
                 orders_array = orders_array + order + '|NP|';
 
                 console.log("Product", order);
