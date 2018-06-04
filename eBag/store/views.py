@@ -73,8 +73,11 @@ class ShoppingCart(View):
 
 def category_products(request, cat_id):
     template = 'store/category.html'
-    cat_products = Product.objects.select_related('category').filter(category_id=cat_id)
-    context = {'products': cat_products}
+    cat_selected = Category.objects.get(id=cat_id).get_descendants(include_self=True)
+    products = [Product.objects.filter(category_id=cat.id) for cat in cat_selected]
+    have_products = any(len(x) for x in products)
+
+    context = {'products': products, 'have_products': have_products}
 
     return render(request, template, context)
 
@@ -89,7 +92,8 @@ def checkout(request, order_uv):
 
 class OrdersView(APIView):
 
-    def get(self, request):
+    @staticmethod
+    def get():
         orders = Order.objects.all()
         serializer = OrderSerializer(orders, many=True)
 

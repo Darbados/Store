@@ -18,8 +18,7 @@
     <!--[if lt IE 9]>
     <script src="{% static 'store/js/html5shiv.js' %}"></script>
     <script src="{% static 'store/js/respond.min.js' %}"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <![endif]-->
 </head><!--/head-->
 
 <body>
@@ -144,11 +143,9 @@
 						<div class="single-widget">
 							<h2>Quock Shop</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="">T-Shirt</a></li>
-								<li><a href="">Mens</a></li>
-								<li><a href="">Womens</a></li>
-								<li><a href="">Gift Cards</a></li>
-								<li><a href="">Shoes</a></li>
+								{% for cat in main_cats %}
+									<li><a href="{% url 'store:products' cat.id %}">{{ cat.name }}</a></li>
+								{% endfor %}
 							</ul>
 						</div>
 					</div>

@@ -63,6 +63,9 @@ $(document).ready(function(){
             let description = $(this).data('description');
             let category = $(this).data('category');
 
+
+
+
             if (window.sessionStorage.getItem('Products').length !== 0){
                 let curr_order = window.sessionStorage.getItem('Products').split('|NP|').length++;
                 let order = "Product" + curr_order + ":|Q-" + quantity + "|SP-" + price + "|Pr-" + product + "=" + (price*quantity) + "|CAT-" + category + "|Desc-" + description;

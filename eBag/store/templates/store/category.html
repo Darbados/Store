@@ -99,30 +99,36 @@
 			<div class="row">
 				<div class="col-sm-9 padding-right">
 					<div class="product-details"><!--product-details-->
-						{% for product in products %}
-							<div class="col-sm-5">
-								<div class="product-information"><!--/product-information-->
-									{% if product.quantity > 0 %}
-										<h2>{{ product.name }}</h2>
-										<p>Product ID: {{ product.id }}</p>
-										<img src="../../{{ product.image.url }}" alt="{{ product.name }}" width="300" height="200"/>
-										<span>
-											<span>{{ product.price }}</span>
-											<label>Quantity:</label>
-											<input type="number" class="quantity" placeholder="0.0" step="0.1" min="0.0"/>
-											<button type="button" class="btn btn-fefault cart" data-product="{{ product.name }}" data-price="{{ product.price }}" data-category="{{ pr.category }}" data-description="{{ pr.description }}">
-												<i class="fa fa-shopping-cart"></i>
-												Add to cart
-											</button>
-										</span>
-										<p><b>Availability:</b> In Stock</p>
-										<p><b>Brand:</b> {{ product.brand }}</p>
-									{% else %}
-										<p>We expect new delivery tomorrow...</p>
-									{% endif %}
-								</div><!--/product-information-->
-							</div>
-						{% endfor %}
+						{% if have_products %}
+							{% for query in products %}
+								{% for product in query %}
+									<div class="col-sm-5">
+										<div class="product-information"><!--/product-information-->
+											{% if product.quantity > 0 %}
+												<h2>{{ product.name }}</h2>
+												<p>Product ID: {{ product.id }}</p>
+												<img src="../../{{ product.image.url }}" alt="{{ product.name }}" width="300" height="200"/>
+												<span>
+													<span>{{ product.price }}</span>
+													<label>Quantity:</label>
+													<input type="number" class="quantity" placeholder="0.0" step="0.1" min="0.0"/>
+													<button type="button" class="btn btn-fefault cart" data-product="{{ product.name }}" data-price="{{ product.price }}" data-category="{{ product.category }}" data-description="{{ product.description }}">
+														<i class="fa fa-shopping-cart"></i>
+														Add to cart
+													</button>
+												</span>
+												<p><b>Availability:</b> In Stock</p>
+												<p><b>Brand:</b> {{ product.brand }}</p>
+											{% else %}
+												<p>We expect new delivery tomorrow...</p>
+											{% endif %}
+										</div><!--/product-information-->
+									</div>
+								{% endfor %}
+							{% endfor %}
+						{% else %}
+							<h3>Currently we don't have products in this category...</h3>
+						{% endif %}
 					</div><!--/product-details-->
 				</div>
 			</div>
@@ -147,24 +153,11 @@
 					</div>
 					<div class="col-sm-2">
 						<div class="single-widget">
-							<h2>Quock Shop</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="">T-Shirt</a></li>
-								<li><a href="">Mens</a></li>
-								<li><a href="">Womens</a></li>
-								<li><a href="">Gift Cards</a></li>
-								<li><a href="">Shoes</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>About Shopper</h2>
+							<h2>About Store</h2>
 							<ul class="nav nav-pills nav-stacked">
 								<li><a href="">Company Information</a></li>
 								<li><a href="">Careers</a></li>
 								<li><a href="">Store Location</a></li>
-								<li><a href="">Affillate Program</a></li>
 								<li><a href="">Copyright</a></li>
 							</ul>
 						</div>
