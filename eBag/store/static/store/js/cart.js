@@ -61,7 +61,12 @@ $(document).ready(function(){
         console.log(order_text.split('|NP|'));
         $('input[name="order_text"]').val(order_text);
         window.sessionStorage.setItem("Products","");
-        $("#order_data").find('input[type="submit"]').click()
+
+        if (order_text.length > 0){
+            $("#order_data").find('input[type="submit"]').click()
+        } else {
+            alert("You're trying to buy nothing.")
+        }
     });
 });
 

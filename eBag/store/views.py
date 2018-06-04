@@ -93,7 +93,7 @@ def checkout(request, order_uv):
 class OrdersView(APIView):
 
     @staticmethod
-    def get():
+    def get(self):
         orders = Order.objects.all()
         serializer = OrderSerializer(orders, many=True)
 
